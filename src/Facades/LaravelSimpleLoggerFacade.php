@@ -1,10 +1,10 @@
 <?php
 
-namespace Ibonly\LaravelLogger\Facades;
+namespace Ibonly\LaravelSimpleLogger\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class LaravelLoggerFacade extends Facade
+class LaravelSimpleLoggerFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {

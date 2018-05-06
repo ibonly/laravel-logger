@@ -1,5 +1,5 @@
 <?php
-namespace Ibonly\LaravelLogger;
+namespace Ibonly\LaravelSimpleLogger;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,18 +18,18 @@ class LaravelLoggerServiceProvider extends ServiceProvider
     public function boot()
     {
         $config = realpath(__DIR__ . '/../resources/config/laravelLogger.php');
-        $migration = realpath(__DIR__ . '/../resources/migration/create_logger_table.php');
+        $migration = realpath(__DIR__ . '/../resources/migration/create_simple_logger_table.php');
 
         $this->publishes([
             $config => config_path('laravelLogger.php')
         ], 'config');
 
-        if (! class_exists('CreateLoggerTable')) {
+        if (! class_exists('CreateSimpleLoggerTable')) {
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                $migration => database_path($timestamp.'_create_logger_table.php')
-            ], 'migrations')
+                $migration => database_path($timestamp.'_create_simple_logger_table.php')
+            ], 'migrations');
         }
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ibonly\LaravelLogger;
+namespace Ibonly\LaravelSimpleLogger;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Ibonly\LaravelLogger\Model\LaravelLogger;
+use Ibonly\LaravelLogger\Model\LaravelSimpleLogger;
 
 class LaravelLogger
 {
@@ -12,7 +12,7 @@ class LaravelLogger
 
     protected $laravelLogger;
 
-    public function __construct(Auth $auth, LaravelLogger $logger)
+    public function __construct(Auth $auth, LaravelSimpleLogger $logger)
     {
         $this->auth = $auth;
         $this->laravelLogger = $logger;
@@ -20,6 +20,6 @@ class LaravelLogger
 
     public function saveLog($description)
     {
-        
+        return 123;
     }
 }

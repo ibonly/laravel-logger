@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'table_name' => 'laravel_logger'
+    'activity_model' => 'LaravelLogger',
+    'table_name' => 'simple_logger'
 ];
