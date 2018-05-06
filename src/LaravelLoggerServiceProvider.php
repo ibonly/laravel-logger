@@ -53,5 +53,20 @@ class LaravelLoggerServiceProvider extends ServiceProvider
     {
         return ['LaravelLogger'];
     }
+
+    public static function determineActivityModel(): string
+    {
+        $activityModel = config('laravellogger.activity_model') ?? Activity::class;
+        if (! is_a($activityModel, Activity::class, true)) {
+            throw InvalidConfiguration::modelIsNotValid($activityModel);
+        }
+        return $activityModel;
+    }
+
+    public static function getActivityModelInstance(): Model
+    {
+        $activityModelClassName = self::determineActivityModel();
+        return new $activityModelClassName();
+    }
 }
 
