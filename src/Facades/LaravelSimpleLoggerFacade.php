@@ -8,6 +8,6 @@ class LaravelSimpleLoggerFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'LaravelLogger';
+        return 'LaravelSimpleLoggerLogger';
     }
 }

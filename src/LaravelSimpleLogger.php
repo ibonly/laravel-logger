@@ -4,9 +4,9 @@ namespace Ibonly\LaravelSimpleLogger;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Ibonly\LaravelLogger\Model\LaravelSimpleLogger;
+use Ibonly\LaravelLogger\Model\LaravelLogger;
 
-class LaravelLogger
+class LaravelSimpleLogger
 {
     protected $auth;
 

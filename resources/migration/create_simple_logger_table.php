@@ -10,7 +10,7 @@ class CreateLoggerTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('laravelloger.table_name'), function (Blueprint $table) {
+        Schema::create(config('laravelSimpleLoger.table_name'), function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('by');
             $table->text('description');
