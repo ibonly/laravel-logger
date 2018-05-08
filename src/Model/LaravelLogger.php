@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LaravelLogger extends Model
 {
-    protected $table;
+    protected $table = 'simple_logger';
 
     protected $fillable = ['by', 'description', 'url', 'method', 'type', 'ip'];
 }

@@ -2,24 +2,62 @@
 
 namespace Ibonly\LaravelSimpleLogger;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Ibonly\LaravelLogger\Model\LaravelLogger;
+use Ibonly\LaravelSimpleLogger\Model\LaravelLogger;
 
 class LaravelSimpleLogger
 {
-    protected $auth;
-
+    /**
+     * @var LaravelLogger
+     */
     protected $laravelLogger;
 
-    public function __construct(Auth $auth, LaravelSimpleLogger $logger)
+    /**
+     * LaravelSimpleLogger constructor.
+     *
+     * @param LaravelLogger $laravelLogger
+     */
+    public function __construct(LaravelLogger $laravelLogger)
     {
-        $this->auth = $auth;
-        $this->laravelLogger = $logger;
+        $this->laravelLogger = $laravelLogger;
     }
 
+    /**
+     * @param string $description
+     *
+     * @return mixed
+     */
     public function saveLog($description)
     {
-        return 123;
+        return $this->laravelLogger->create([
+            'by' => auth()->user()->id,
+            'description' => $description,
+            'url' => Request::fullUrl(),
+            'method' => Request::method(),
+            'agent' => Request::header('user-agent'),
+            'ip' => Request::ip()
+        ]);
     }
+
+    /**
+     * @return string
+     */
+    public function getLogs()
+    {
+        return $this->laravelLogger->all()->toJson();
+    }
+
+    /**
+     * @param int | null $id
+     *
+     * @return mixed
+     */
+    public function getUserLogs($id = null)
+    {
+        $userId = (is_null($id)) ? auth()->user()->id : $id;
+
+        return $this->laravelLogger->whereBy($userId)->get();
+    }
+
+
 }
