@@ -94,11 +94,21 @@ class LaravelSimpleLogger
     }
 
     /**
+     * [isOnline description]
+     * @return boolean [description]
+     */
+    public function isOnline()
+    {
+        $user = $this->onlineLogger->whereUserId(auth()->user()->id)->first();
+
+        return $user ? true : false;
+    }
+
+    /**
      * @return mixed
      */
     public function onlineCount()
     {
         return $this->onlineLogger->count();
     }
-
 }

@@ -65,4 +65,3 @@ class LaravelSimpleLoggerServiceProvider extends ServiceProvider
         return ['LaravelSimpleLogger'];
     }
 }
-
