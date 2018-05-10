@@ -8,5 +8,5 @@ class LaravelLogger extends Model
 {
     protected $table = 'simple_logger';
 
-    protected $fillable = ['by', 'description', 'url', 'method', 'type', 'ip'];
+    protected $fillable = ['by', 'description', 'url', 'method', 'agent', 'ip'];
 }

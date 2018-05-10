@@ -10,13 +10,13 @@ class CreateSimpleLoggerTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('simple_logger'), function (Blueprint $table) {
+        Schema::create('simple_logger', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('by');
             $table->text('description');
             $table->string('url')->nullable();
             $table->string('method')->nullable();
-            $table->string('type')->nullable();
+            $table->string('agent')->nullable();
             $table->string('ip')->nullable();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ class CreateSimpleLoggerTable extends Migration
      */
     public function down()
     {
-        Schema::drop(config('laravelloger.table_name'));
+        Schema::drop('simple_logger');
     }
 }

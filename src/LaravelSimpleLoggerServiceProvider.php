@@ -4,7 +4,6 @@ namespace Ibonly\LaravelSimpleLogger;
 
 use Illuminate\Support\ServiceProvider;
 use Ibonly\LaravelSimpleLogger\Exception\InvalidConfiguration;
-use Ibonly\LaravelSimpleLogger\Model\LaravelLogger;
 
 class LaravelSimpleLoggerServiceProvider extends ServiceProvider
 {
@@ -22,6 +21,7 @@ class LaravelSimpleLoggerServiceProvider extends ServiceProvider
     {
         $config = realpath(__DIR__ . '/../resources/config/laravelSimpleLogger.php');
         $migration = realpath(__DIR__ . '/../resources/migration/create_simple_logger_table.php');
+        $migration2 = realpath(__DIR__ . '/../resources/migration/create_simple_is_online_logger_table.php');
 
         $this->publishes([
             $config => config_path('laravelSimpleLogger.php')
@@ -31,7 +31,15 @@ class LaravelSimpleLoggerServiceProvider extends ServiceProvider
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                $migration => database_path($timestamp.'_create_simple_logger_table.php')
+                $migration => database_path("/migrations/{$timestamp}_create_simple_logger_table.php")
+            ], 'migrations');
+        }
+
+        if (! class_exists('CreateSimpleIsOnlineLoggerTable')) {
+            $timestamp = date('Y_m_d_His', time());
+
+            $this->publishes([
+                $migration2 => database_path("/migrations/{$timestamp}_create_simpleis_online_logger_table.php")
             ], 'migrations');
         }
     }
@@ -55,23 +63,6 @@ class LaravelSimpleLoggerServiceProvider extends ServiceProvider
     public function provides()
     {
         return ['LaravelSimpleLogger'];
-    }
-
-    public static function determineActivityModel(): string
-    {
-        $activityModel = config('laravelSimpleLogger.activity_model') ?? LaravelLogger::class;
-        if (! is_a($activityModel, LaravelLogger::class, true)) {
-            throw InvalidConfiguration::modelIsNotValid($activityModel);
-        }
-
-        return $activityModel;
-    }
-
-    public static function getActivityModelInstance(): Model
-    {
-        $activityModelClassName = self::determineActivityModel();
-
-        return new $activityModelClassName();
     }
 }
 
